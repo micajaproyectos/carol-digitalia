@@ -1,0 +1,326 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-crema: #efdfc4;
+  --color-arena: #e7dcc6;
+  --color-espresso: #2b1f16;
+  --color-camel: #a86b3c;
+  --color-dorado: #9f6103;
+  --color-oro: #cf9d54;
+  --color-rosa: #d3a9b6;
+  --color-rosa-palo: #dbc4cc;
+  --color-gris-claro: #edede8;
+  --color-gris: #d9d9d9;
+  --color-tinta: #1b1a1a;
+}
+
+html,
+body {
+  background-color: var(--color-crema);
+  color: var(--color-tinta);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Animación: blur + fade + subida                                    */
+/* ------------------------------------------------------------------ */
+@keyframes blurFadeUp {
+  from {
+    opacity: 0;
+    filter: blur(20px);
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+.animate-blur-fade-up {
+  opacity: 0; /* estado inicial antes de animar */
+  animation: blurFadeUp 1s ease-out forwards;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Ken Burns: zoom lento de la foto del hero                           */
+/* ------------------------------------------------------------------ */
+@keyframes kenBurns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+.animate-ken-burns {
+  animation: kenBurns 20s ease-in-out infinite alternate;
+  transform-origin: center;
+  will-change: transform;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Resplandor: brillo que cruza los botones + leve zoom al hover      */
+/* ------------------------------------------------------------------ */
+@keyframes resplandor {
+  0% {
+    left: -150%;
+  }
+  60% {
+    left: 150%;
+  }
+  100% {
+    left: 150%;
+  }
+}
+
+.btn-resplandor {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-resplandor::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 8%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+  transform: skewX(-20deg);
+  animation: resplandor 3s infinite linear;
+  pointer-events: none;
+}
+
+/* Variante más notoria para elementos pequeños (los números de "Cómo
+   funciona"): en un círculo de 56px la franja original de 8% casi no se ve,
+   así que aquí es más ancha, más luminosa y con menos desenfoque. */
+.resplandor-notorio::after {
+  width: 55%;
+  background: rgba(255, 255, 255, 0.85);
+  filter: blur(4px);
+  -webkit-filter: blur(4px);
+}
+
+/* Desfases para que el destello recorra elementos en secuencia
+   (ej: los números 1 → 2 → 3 de "Cómo funciona") */
+.resplandor-delay-1::after {
+  animation-delay: 0.5s;
+}
+
+.resplandor-delay-2::after {
+  animation-delay: 1s;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Estrellas del hero: aparecen una a una (CSS puro para que arranque  */
+/*  en el primer pintado, sin esperar la hidratación de React)          */
+/* ------------------------------------------------------------------ */
+@keyframes estrellaPop {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.estrella-pop {
+  display: inline-block;
+  opacity: 0;
+  animation: estrellaPop 0.35s ease-out forwards;
+}
+
+/* Variante para líneas decorativas: una luz tenue recorre la línea.
+   En la vertical la luz "sube" desde abajo hacia arriba.
+   La luz entra y sale completamente fuera de la línea, sin pausas,
+   para que el bucle sea continuo y no se note el reinicio. */
+@keyframes resplandorLineaV {
+  0% {
+    top: 110%;
+  }
+  100% {
+    top: -26%;
+  }
+}
+
+@keyframes resplandorLineaH {
+  0% {
+    left: -26%;
+  }
+  100% {
+    left: 110%;
+  }
+}
+
+.linea-resplandor-v::after,
+.linea-resplandor-h::after {
+  content: "";
+  position: absolute;
+  filter: blur(1px);
+  -webkit-filter: blur(1px);
+  pointer-events: none;
+}
+
+.linea-resplandor-v::after {
+  left: 50%;
+  top: 110%;
+  width: 1px;
+  height: 24%;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to top,
+    transparent,
+    rgba(255, 243, 220, 0.5),
+    transparent
+  );
+  animation: resplandorLineaV 4s infinite linear;
+}
+
+.linea-resplandor-h::after {
+  top: 50%;
+  left: -15%;
+  height: 1px;
+  width: 24%;
+  transform: translateY(-50%);
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 243, 220, 0.5),
+    transparent
+  );
+  animation: resplandorLineaH 4s infinite linear;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Marquee: las tarjetas de testimonios circulan en loop infinito.    */
+/*  El track contiene el contenido duplicado 2x; al llegar a -50%      */
+/*  queda idéntico al inicio y el reinicio es invisible.               */
+/* ------------------------------------------------------------------ */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee 36s linear infinite;
+  will-change: transform;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Liquid glass: superficie translúcida con borde-gradiente           */
+/* ------------------------------------------------------------------ */
+.liquid-glass {
+  position: relative;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(27, 26, 26, 0.08);
+}
+
+.liquid-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.1) 40%,
+    rgba(255, 255, 255, 0.35)
+  );
+  /* sólo pinta el borde: rellena con la máscara y excluye el interior */
+  -webkit-mask: linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Hero blur inferior (sin oscurecer, sólo desenfoca el borde bajo)    */
+/* ------------------------------------------------------------------ */
+.hero-blur-bottom {
+  position: relative;
+}
+
+.hero-blur-bottom::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  mask-image: linear-gradient(to top, black 0%, transparent 45%);
+  -webkit-mask-image: linear-gradient(to top, black 0%, transparent 45%);
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Accesibilidad: respeta reducción de movimiento                     */
+/* ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-blur-fade-up {
+    opacity: 1;
+    animation: none;
+  }
+
+  .animate-ken-burns {
+    animation: none;
+    transform: none;
+  }
+
+  /* Excepción deliberada: el destello y el zoom de los botones se
+     mantienen aunque el sistema tenga reducción de movimiento activada */
+  .btn-resplandor {
+    transition-duration: 500ms !important;
+  }
+
+  .btn-resplandor::after {
+    animation-duration: 3s !important;
+    animation-iteration-count: infinite !important;
+  }
+
+  .linea-resplandor-v::after,
+  .linea-resplandor-h::after {
+    animation-duration: 4s !important;
+    animation-iteration-count: infinite !important;
+  }
+
+  /* Las estrellas del hero también se mantienen: efecto breve, una sola vez */
+  .estrella-pop {
+    animation-duration: 0.35s !important;
+  }
+
+  /* El marquee de testimonios también se mantiene */
+  .marquee-track {
+    animation-duration: 36s !important;
+    animation-iteration-count: infinite !important;
+  }
+}
