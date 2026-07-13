@@ -106,7 +106,7 @@ export default function Testimonios() {
               <article
                 key={`${t.nombre}-${i}`}
                 aria-hidden={i >= testimonios.length}
-                className="mr-4 flex w-[280px] shrink-0 flex-col rounded-2xl border border-dorado/20 bg-arena/30 p-5 shadow-[0_16px_40px_-12px_rgba(27,26,26,0.12)] sm:w-[320px]"
+                className="mr-4 flex w-[280px] shrink-0 flex-col rounded-2xl border border-dorado/20 bg-arena/30 p-5 shadow-[0_8px_20px_-14px_rgba(27,26,26,0.08)] sm:w-[320px]"
               >
                 <p className="text-xs tracking-[0.25em] text-dorado" aria-hidden>
                   ★★★★★
