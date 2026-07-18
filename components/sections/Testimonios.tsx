@@ -90,6 +90,13 @@ export default function Testimonios() {
               />
             </svg>
             <span className="text-sm font-medium text-tinta">Ver reseñas</span>
+            <span
+              className="text-xs tracking-[0.2em] text-dorado"
+              role="img"
+              aria-label="5 estrellas"
+            >
+              ★★★★★
+            </span>
           </a>
         </motion.div>
 
@@ -127,11 +134,11 @@ export default function Testimonios() {
 
           {/* Fundidos laterales para que las tarjetas entren y salgan suave */}
           <div
-            className="pointer-events-none absolute inset-y-0 left-0 w-5 bg-gradient-to-r from-white to-transparent sm:w-8"
+            className="pointer-events-none absolute inset-y-0 left-0 w-3 bg-gradient-to-r from-white/70 to-transparent sm:w-5"
             aria-hidden
           />
           <div
-            className="pointer-events-none absolute inset-y-0 right-0 w-5 bg-gradient-to-l from-white to-transparent sm:w-8"
+            className="pointer-events-none absolute inset-y-0 right-0 w-3 bg-gradient-to-l from-white/70 to-transparent sm:w-5"
             aria-hidden
           />
         </motion.div>
