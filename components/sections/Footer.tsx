@@ -43,8 +43,8 @@ export default function Footer() {
         <div>
           <p className="font-serif text-2xl">Carol Digitalia</p>
           <p className="mt-2 text-sm leading-relaxed text-crema/70">
-            Acompaño a mujeres a dar el primer paso en su emprendimiento, con
-            cabeza y corazón.
+            Te acompaño a dar el primer paso en su emprendimiento, como si fuera
+            mi propio negocio.
           </p>
         </div>
 
@@ -68,7 +68,7 @@ export default function Footer() {
                 href="mailto:contacto@caroldigitalia.cl"
                 className="transition hover:text-crema"
               >
-                contacto@caroldigitalia.cl
+                contacto@caroldigitalia.com
               </a>
             </li>
           </ul>
@@ -99,7 +99,7 @@ export default function Footer() {
       </div>
 
       <div className="mx-auto mt-12 max-w-5xl border-t border-crema/15 pt-6 text-center text-xs text-crema/50">
-        © {new Date().getFullYear()} Carol Digitalia. Hecho con cariño en Chile.
+        © {new Date().getFullYear()} Carol Digitalia
       </div>
     </footer>
   );
