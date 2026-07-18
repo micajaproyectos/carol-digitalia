@@ -8,12 +8,25 @@ import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
 import AgendarButton from "@/components/AgendarButton";
 
-const incluye = [
-  "Hablamos de tu proyecto: dónde estás hoy y hacia dónde quieres llevarlo.",
-  "Revisamos juntas tus planes y definimos prioridades con mirada de negocio.",
-  "Te transmito mis 9 años de experiencia creando empresas, aplicados a tu caso.",
-  "Sales con una ruta clara: qué hacer primero, qué evitar y con qué información partir.",
-  "Comienzas tu proyecto con la información correcta, para no fracasar en el intento.",
+const fases = [
+  {
+    numero: "01",
+    titulo: "Aterrizamos tu idea",
+    texto:
+      "Hablamos de tu idea y le damos dirección: definimos quién es tu cliente, qué problema resuelves y cómo convertirla en un negocio.",
+  },
+  {
+    numero: "02",
+    titulo: "Tu primera venta",
+    texto:
+      "Creamos una estrategia para lograr tu primera venta y validar tu producto. Si alguien lo compra, tienes un negocio.",
+  },
+  {
+    numero: "03",
+    titulo: "Formalizamos tu empresa",
+    texto:
+      "Te guío para formalizar tu empresa y dejar todo en regla, lista para comenzar a operar con tranquilidad.",
+  },
 ];
 
 const listaVariants: Variants = {
@@ -60,7 +73,7 @@ export default function LaAsesoria() {
               $25.000
             </p>
             <p className="pb-0.5 text-sm text-crema/60">
-              CLP · una sesión de una hora
+              CLP · valor por sesión de una hora
             </p>
           </div>
 
@@ -120,29 +133,40 @@ export default function LaAsesoria() {
         />
 
         <div className="relative z-10 mx-auto w-full max-w-xl">
-          <h3 className="font-serif text-xl text-crema">Qué incluye</h3>
-          <motion.ul
+          <h3 className="font-serif text-xl text-crema">Fases de trabajo</h3>
+          <p className="mt-2 text-[15px] leading-relaxed text-crema/70">
+            En cada sesión vamos avanzando en tu proyecto.
+          </p>
+          <motion.ol
             variants={listaVariants}
             initial="hidden"
             whileInView="show"
             viewport={{ once: false, amount: 0.3 }}
             className="mt-7"
           >
-            {incluye.map((item) => (
+            {fases.map((fase) => (
               <motion.li
-                key={item}
+                key={fase.numero}
                 variants={itemVariants}
-                className="flex items-start gap-3.5 border-b border-crema/15 py-4 first:pt-0 last:border-0"
+                className="flex items-start gap-4 border-b border-crema/15 py-5 first:pt-0 last:border-0"
               >
-                <span className="mt-0.5 text-oro" aria-hidden>
-                  ✦
+                <span
+                  className="font-serif text-2xl leading-none text-oro/70"
+                  aria-hidden
+                >
+                  {fase.numero}
                 </span>
-                <span className="text-[15px] leading-relaxed text-crema/85">
-                  {item}
+                <span>
+                  <span className="block font-serif text-lg text-crema">
+                    {fase.titulo}
+                  </span>
+                  <span className="mt-1.5 block text-[15px] leading-relaxed text-crema/85">
+                    {fase.texto}
+                  </span>
                 </span>
               </motion.li>
             ))}
-          </motion.ul>
+          </motion.ol>
         </div>
       </div>
     </section>
